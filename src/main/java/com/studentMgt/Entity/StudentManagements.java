@@ -1,4 +1,4 @@
-package com.schoolMgt.Entity;
+package com.studentMgt.Entity;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;

@@ -1,25 +1,49 @@
-package com.schoolMgt;
+package com.studentMgt;
 
-import com.schoolMgt.Entity.StudentManagements;
-
-import javax.net.ssl.SSLSession;
-import java.lang.module.Configuration;
+import com.studentMgt.Entity.StudentManagements;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
+import org.hibernate.cfg.Configuration;
 
 public class Main {
     public static void main(String[] args) {
-        StudentManagements studentManagements=new StudentManagements();
-        studentManagements.setId(1);
-        studentManagements.setName("Jyothi");
-        studentManagements.setBranch("B.Com");
-        studentManagements.setEmail("jyothi@gmail.com");
-        studentManagements.setMarks(400.0);
+        StudentManagements student = new StudentManagements();
+        //to create the data and inserting the data and update the data
+//        int id = 7;
+//        student.setId(id);
+//        student.setName("mahi");
+//        student.setBranch("BSC");
+//        student.setEmail("mahi@gmail.com");
+//        student.setMarks(450.0);
 
-        Configuration config=new Configuration();
 
-       SessionFactory factory=config.buildSessionFactory();
-        Session session=factory.openSession();
+        SessionFactory factory = new Configuration()
+                .addAnnotatedClass(StudentManagements.class)
+                .configure()
+                .buildSessionFactory();
 
-        session.persist(studentManagements);
 
+        Session session = factory.openSession();
+        //To create the data we can use
+//        Transaction transaction = session.beginTransaction();
+//
+//        session.persist(student);
+//        transaction.commit();
+
+        //to get the data
+//        StudentManagements sm=session.get(StudentManagements.class,5);
+//        System.out.println(sm);
+        //update the data
+//        Transaction transaction=session.beginTransaction();
+//            session.merge(student);
+//            transaction.commit();
+        //Delete the data
+        Transaction transaction=session.beginTransaction();
+        StudentManagements sm=session.find(StudentManagements.class,7);
+        session.remove(sm);
+        transaction.commit();
+        session.close();
+        factory.close();
     }
 }
